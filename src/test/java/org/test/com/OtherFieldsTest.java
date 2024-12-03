@@ -17,7 +17,7 @@ public class OtherFieldsTest extends EngineClass {
 		fp.todayFlightStatus();
 		test.log(Status.PASS, "Today Flight Status");	
 	}
-	@Test(groups= {"flight","Regression"})
+	@Test(groups= {"flight","Regression","Smoke"})
 	public void flightTc02() {
 		test=report.createTest("Tomorrow Flight Status");
 		FlightStatusPage fp= new FlightStatusPage();
@@ -42,7 +42,7 @@ public class OtherFieldsTest extends EngineClass {
 	test.log(Status.PASS, "Manage Booking");
 	}
 	
-	@Test(groups= {"Check","Regression"})
+	@Test(groups= {"Check","Regression","Smoke"})
 	public void checkTc01() {
 		test=report.createTest("CheckIn");	
 		CheckinPage cp = new CheckinPage(driver);

@@ -35,7 +35,5 @@ public class ManageBookingPage extends BaseClass {
 		buttonClick(searchbookinbutton);
 		sa.assertEquals("SpiceJet - Flight Booking for Domestic and International, Cheap Air Tickets", actual);
 		sa.assertAll();
-		
-		
 	}
 }

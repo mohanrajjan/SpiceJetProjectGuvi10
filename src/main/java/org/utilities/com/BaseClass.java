@@ -13,6 +13,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -39,7 +40,12 @@ public class BaseClass extends JavaUtility{
 		}
 		else if(browser.equalsIgnoreCase("edge")) {
 			driver = new EdgeDriver();
+		}else if(browser.equalsIgnoreCase("headless")) {
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("--headless");
+			driver = new ChromeDriver(options);
 		}
+		
 		else {
 			driver = new ChromeDriver();
 		}
@@ -136,7 +142,6 @@ public static String takeScreenshot() {
     public static void goandclick(WebElement element) {
     	
     JavascriptExecutor jj = (JavascriptExecutor) driver;
-    
 	jj.executeScript("arguments[0].click();", element);
 }
     

@@ -13,7 +13,7 @@ public class SignupPage extends BaseClass {
 	}
 	
 	@FindBy(xpath="//div[text()='Signup']")
-	WebElement signupbutton;
+	WebElement signupbuttonicon;
 	
 	@FindBy(xpath="//option[text()='Select an option']//parent::select")
 	WebElement titleoption;
@@ -28,7 +28,7 @@ public class SignupPage extends BaseClass {
 	WebElement lastname;
 	
 	@FindBy(xpath="//img[@alt='date']")
-	WebElement dob;
+	WebElement dobcalendar;
 	
 	@FindBy(xpath="//select[@class='react-datepicker__month-select']")
 	WebElement monthofdob;
@@ -43,7 +43,7 @@ public class SignupPage extends BaseClass {
 	@FindBy(xpath="//input[@type='tel']")
 	WebElement mobilenumber;
 	
-	@FindBy(xpath="//input[@id='email_id']")
+	@FindBy(id="email_id")
 	WebElement emailid;
 	
 	@FindBy(id="new-password")
@@ -66,14 +66,16 @@ public class SignupPage extends BaseClass {
 	
 	public void signupValid() {
 		SoftAssert sa = new SoftAssert();
-		buttonClick(signupbutton);
+		String expected="SpiceClub - The frequent flyer program of SpiceJet";
+		buttonClick(signupbuttonicon);
 		newwindow();
+		String actual=title();
 		waitExplicit(titleoption, 3);
 		buttonClick(titleoption);
 		selectDropDownByValue(titleoption, "MR");
 		textKey(firstmiddlename, "Andrew");
 		textKey(lastname, "Simons");
-		buttonClick(dob);
+		buttonClick(dobcalendar);
 		waitExplicit(monthofdob, 3);
 		buttonClick(monthofdob);
 		SelectDropdownByText(monthofdob, "April");
@@ -82,13 +84,18 @@ public class SignupPage extends BaseClass {
 		buttonClick(dateofdob);
 		waitExplicit(mobilenumber, 3);
 		textKey(mobilenumber, "6864653537");
-		waitExplicit(emailid, 5);
-		textKey(emailid, "sdkj23@gmail.com");
+		waitExplicit(emailid, 2);
+		gotoelement(emailid);
+		waitExplicit(emailid, 2);
+		textKey(emailid, "mani324@gmail.com");
+		waitExplicit(password, 2);
 		textKey(password, "Money@123");
 		textKey(confirmpassword, "Money@123");
 		waitExplicit(termscondition, 3);
 		goandclick(termscondition);
 		goandclick(submitbutton);
+		sa.assertAll();
+		sa.assertEquals(actual, expected);
 	}
 	
 }

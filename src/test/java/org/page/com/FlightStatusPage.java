@@ -27,16 +27,16 @@ public class FlightStatusPage extends BaseClass {
 	@FindBy(xpath="//div[text()='Tomorrow']")
 	WebElement fsdepttomorrow;
 	
-	@FindBy(xpath="//div[text()='From']")
-	WebElement fromcityselect;
+	@FindBy(xpath="(//div[text()='From']//following::input)[1]")
+	WebElement originselect;
 	
-	@FindBy(xpath="//div[text()='To']")
-	WebElement tocityselect;
+	@FindBy(xpath="(//div[text()='To']//following::input)[1]")
+	WebElement destinationselect;
 	
-	@FindBy(xpath="//div[text()='Flight No.(optional)']")
+	@FindBy(xpath="(//div[text()='Flight No.(optional)']//following::input)[1]")
 	WebElement flightno;
 	
-	@FindBy(xpath="//div[text()='Search Flights']")
+	@FindBy(xpath="(//div[text()='Search Flights']//parent::div)[1]")
 	WebElement flightsearch;
 	
 	@FindBy(xpath="//div[text()='DEL']")
@@ -63,14 +63,12 @@ public class FlightStatusPage extends BaseClass {
 		String actual = title();
 		waitExplicit(fsdepttoday, 2);
 		buttonClick(fsdepttoday);
-		buttonClick(fromcityselect);
-		waitExplicit(agracity, 2);
-		buttonClick(agracity);
-		buttonClick(tocityselect);
-		waitExplicit(delhicity, 2);
-		moveto(delhicity);
-		buttonClick(delhicity);
-		//goandclick(delhicity);
+		waitExplicit(originselect, 2);
+		textKey(originselect, "Delhi");
+		waitExplicit(destinationselect, 2);
+		buttonClick(destinationselect);
+		buttonClick(chennaicity);
+		waitExplicit(flightno, 3);
 		textKey(flightno, "4335");
 		buttonClick(flightsearch);
 		sa.assertEquals("SpiceJet - Flight Booking for Domestic and International, Cheap Air Tickets", actual);
@@ -85,12 +83,10 @@ public class FlightStatusPage extends BaseClass {
 		buttonClick(fsdepaturedate);
 		String actual = title();
 		buttonClick(fsdeptyesterday);
-		buttonClick(fromcityselect);
-		waitExplicit(delhicity, 2);
-		goandclick(delhicity);
-		buttonClick(tocityselect);
-		waitExplicit(chennaicity, 2);
-		goandclick(chennaicity);
+		waitExplicit(originselect, 2);
+		textKey(originselect, "Chennai");
+		waitExplicit(destinationselect, 2);
+		textKey(destinationselect, "Delhi");
 		textKey(flightno, "4338");
 		buttonClick(flightsearch);
 		sa.assertEquals("SpiceJet - Flight Booking for Domestic and International, Cheap Air Tickets", actual);
@@ -105,12 +101,10 @@ public class FlightStatusPage extends BaseClass {
 		buttonClick(fsdepaturedate);
 		String actual = title();
 		buttonClick(fsdepttomorrow);
-		buttonClick(fromcityselect);
-		waitExplicit(delhicity, 3);
-		goandclick(delhicity);
-		buttonClick(tocityselect);
-		waitExplicit(guwahaticity, 3);
-		goandclick(guwahaticity);
+		waitExplicit(originselect, 3);
+		textKey(originselect, "Delhi");
+		waitExplicit(destinationselect,3);
+		textKey(destinationselect, "Hyderabad");
 		textKey(flightno, "4245");
 		buttonClick(flightsearch);
 		sa.assertEquals("SpiceJet - Flight Booking for Domestic and International, Cheap Air Tickets", actual);

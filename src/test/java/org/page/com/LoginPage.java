@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import org.utilities.com.BaseClass;
 
@@ -40,29 +42,40 @@ public class LoginPage extends BaseClass {
 	@FindBy(xpath="//div[text()='Forgot Password?']")
 	 WebElement forgotpasswordlink;
 	
+	@FindBy(id="react-root")
+	WebElement clickpage;
 	
-	public void loginWithMobile() {
+	
+	public void loginWithMobile(String email, String password, String mobile) {
 		SoftAssert sa = new SoftAssert();
 	   buttonClick(loginicon);
 	   waitExplicit(mobileradiobutton, 3);
-	   textKey(mobileinputtext, "8939873587");
-	   textKey(passwordlogtext, "Money@123");
+	   textKey(mobileinputtext, mobile);
+	   textKey(passwordlogtext,password);
 	   buttonClick(loginbutton);
+	   String expected="SpiceJet - Flight Booking for Domestic and International, Cheap Air Tickets";
+	   String actual=title();
+	   buttonClick(clickpage);
+	   sa.assertEquals(expected, actual);
 	   sa.assertAll();
+	  
 	}
 	
-	public void loginWithEmail() {
+	
+	public void loginWithEmail(String email, String password, String mobile) {
 		SoftAssert sa = new SoftAssert();
 		   buttonClick(loginicon);
 		   waitExplicit(emailradiobutton, 3);
 		   buttonClick(emailradiobutton);
 		   waitExplicit(emaillogtext, 3);
-		   textKey(emaillogtext, "sdsnl12@gmail.com");
-		   textKey(passwordlogtext, "Money@123");
+		   textKey(emaillogtext, email);
+		   textKey(passwordlogtext, password);
 		   buttonClick(loginbutton);
 		   String expected="SpiceJet - Flight Booking for Domestic and International, Cheap Air Tickets";
 		   String actual=title();
-		   sa.assertAll();
+		   buttonClick(clickpage);
 		   sa.assertEquals(expected, actual);
+		   sa.assertAll();
+		   
 	}
 }

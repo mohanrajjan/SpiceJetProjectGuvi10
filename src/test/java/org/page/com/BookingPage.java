@@ -47,7 +47,7 @@ public class BookingPage extends BaseClass{
 	WebElement depaturedate;
 	
 	@FindBy(xpath="//div[text()='Return Date']")
-	WebElement returndate;
+	WebElement returntab;
 	
 	@FindBy(xpath="//div[text()='Currency']")
 	WebElement currency;
@@ -79,9 +79,14 @@ public class BookingPage extends BaseClass{
 	@FindBy(xpath="(//div[text()='Search Flight']//parent::div)[1]")
 	WebElement searchflightbutton;
 	
-	@FindBy(xpath="//div[text()='30']")
+	@FindBy(xpath="(//div[text()='5'])[2]")
 	WebElement deptdate;
 	
+	@FindBy(xpath="(//div[text()='Return Date']//following::div)[1]")
+	WebElement returnbutton;
+	
+	@FindBy(xpath="(//div[text()='10'])[2]")
+	WebElement returndate;
 	
 	@FindBy(xpath="(//div[text()='Adult']//following::div)[6]")
 	WebElement addadult;
@@ -154,33 +159,17 @@ public class BookingPage extends BaseClass{
 	
 	public void bookTicket01() throws InterruptedException {
 		SoftAssert sa = new SoftAssert();
-		/*
-		 * waitExplicit(fromcity, 2); buttonClick(fromcity); waitExplicit(chennaicity,
-		 * 2); textKey(chennaicity, "Chennai");
-		 */
-		/*
-		 * gotoelement(chennaicity); buttonClick(chennaicity);
-		 * 
-		 */
+		
 		waitExplicit(tocity, 3);
 		textKey(tocity, "Chennai");
-		/*
-		 * buttonClick(tocity); waitExplicit(chennaicity, 2); textKey(chennaicity,
-		 * "Chennai");
-		 */
-		/*
-		 * gotoelement(delhicity); buttonClick(delhicity);
-		 */
 		
-		//buttonClick(depaturedate);
-		//Thread.sleep(5000);
 		buttonClick(deptdate);
 		//buttonClick(addpassengers);
 		//buttonClick(addadult);
+		//buttonClick(searchflightbutton);
 		buttonClick(searchflightbutton);
 		waitExplicit(continuebutton, 3);
-		buttonClick(continuebutton);
-		buttonClick(continuebutton);		 
+		buttonClick(continuebutton);	 
 		buttonClick(titleselect);
 		waitExplicit(missselect, 3);
 		buttonClick(missselect);
@@ -192,12 +181,11 @@ public class BookingPage extends BaseClass{
 		Thread.sleep(3000);
 		gotoelement(checkasprimarypassenger);
 		buttonClick(checkasprimarypassenger);
-		//goandclick(checkasprimarypassenger);
 		buttonClick(continuebutton);
 		
 		
 		try { 
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 			driver.findElement(By.
 				  xpath("(//div[text()='UNBELIEVABLY LOW PRICES!']//preceding::img)[86]")).
 				  click(); }catch(Exception e){ e.printStackTrace(); 
@@ -232,42 +220,36 @@ public class BookingPage extends BaseClass{
 	}
 	
 	public void onewaySearch() {
-		waitExplicit(fromcity, 2);
-		buttonClick(fromcity);
-		waitExplicit(chennaicity, 2);
-		textKey(chennaicity,"Chennai" );
-		/*
-		 * gotoelement(chennaicity); buttonClick(chennaicity);
-		 */
-		buttonClick(tocity);
-		waitExplicit(delhicity, 2);
-		textKey(delhicity, "Delhi");
-		/*
-		 * gotoelement(delhicity); buttonClick(delhicity);
-		 */
-		buttonClick(depaturedate);
+		SoftAssert sa = new SoftAssert();
+		waitExplicit(tocity, 2);
+		String expected="SpiceJet - Flight Booking for Domestic and International, Cheap Air Tickets";
+		String actual=title();
+		textKey(tocity, "Ahmedabad");
 		buttonClick(deptdate);
-		buttonClick(addpassengers);
-		buttonClick(addadult);
+		waitExplicit(searchflightbutton, 2);
 		buttonClick(searchflightbutton);
+		
+		sa.assertAll();
+		sa.assertEquals(actual, expected);
 	}
 	
-	public void roundTripSearch() {
+	public void roundTripSearch() throws InterruptedException {
+		SoftAssert sa = new SoftAssert();
 		waitExplicit(roundwaytrip, 3);
-		buttonClick(roundwaytrip);
-		waitExplicit(fromcity, 2);
-		buttonClick(fromcity);
-		waitExplicit(delhicity, 2);
-		gotoelement(delhicity);
-		buttonClick(delhicity);
-		buttonClick(tocity);
-		waitExplicit(chennaicity, 2);
-		gotoelement(chennaicity);
-		buttonClick(chennaicity);
-		buttonClick(depaturedate);
+		goandclick(roundwaytrip);
+		String expected="SpiceJet - Flight Booking for Domestic and International, Cheap Air Tickets";
+		String actual=title();
+		textKey(tocity, "Ahmedabad");
+		//waitExplicit(deptdate, 3);
 		buttonClick(deptdate);
-		buttonClick(addpassengers);
-		buttonClick(addadult);
+		Thread.sleep(1000);
+		waitExplicit(returnbutton, 3);
+		buttonClick(returnbutton);
+		waitExplicit(returndate, 3);
+		buttonClick(returndate);
+		waitExplicit(searchflightbutton, 3);
 		buttonClick(searchflightbutton);
+		sa.assertAll();
+		sa.assertEquals(actual, expected);
 	}
 }
